@@ -1,20 +1,19 @@
-export default class Slider {
-    constructor (pageSel, btnsSel) {
-        this.page = document.querySelector(pageSel);
-        this.sliders = this.page.children;
-        this.btns = document.querySelectorAll(btnsSel);
-        this.index = 0;
-    }
+import Slider from './slider';
 
+export default class MainSlider extends Slider {
+    constructor(pageSel, btnsSel) {
+        super(pageSel, btnsSel)
+    }
+    
     showSlide(s) {
-        this.sliders.forEach(slide => slide.style.display = 'none');
-        this.sliders[s].style.display = 'block';
+        this.slides.forEach(slide => slide.style.display = 'none');
+        this.slides[s].style.display = 'block';
     }
 
     nextIndex(n) {
         this.index += n;
-        if (this.index < 0) this.index = this.sliders.length - 1;
-        if (this.index >= this.sliders.length) this.index = 0;
+        if (this.index < 0) this.index = this.slides.length - 1;
+        if (this.index >= this.slides.length) this.index = 0;
     }
 
     showHanson() {
