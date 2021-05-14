@@ -1,8 +1,8 @@
 import Slider from './slider';
 
 export default class MainSlider extends Slider {
-    constructor(pageSel, btnsSel) {
-        super(pageSel, btnsSel)
+    constructor(containerSel, btnsSel) {
+        super(containerSel, btnsSel)
     }
     
     showSlide(s) {
@@ -43,7 +43,7 @@ export default class MainSlider extends Slider {
             })
         })
 
-        this.page.querySelectorAll('.sidecontrol > a').forEach(D => {
+        this.container.querySelectorAll('.sidecontrol > a').forEach(D => {
             D.addEventListener('click', (evt) => {
                 evt.preventDefault();
                 this.index = 0;
