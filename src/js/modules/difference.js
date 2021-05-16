@@ -26,9 +26,11 @@ export default class Difference {
     }
 
     init() {
-        this.hideAll(this.officerold.children);
-        this.hideAll(this.officernew.children);
-        this.showOne(this.officernew, this.new);
-        this.showOne(this.officerold, this.old);
+        try {
+            this.hideAll(this.officerold.children);
+            this.hideAll(this.officernew.children);
+            this.showOne(this.officernew, this.new);
+            this.showOne(this.officerold, this.old);
+        } catch (e) {}
     }
 }

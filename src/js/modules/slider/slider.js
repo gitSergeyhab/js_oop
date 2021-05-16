@@ -5,7 +5,6 @@ export default class Slider {
         // this.slides = this.container.children;
         
         this.slides = document.querySelectorAll(slideSel);
-        console.log(this.slides)
         this.btns = document.querySelectorAll(btnsSel);
         this.index = 0;
         this.prevBtns = document.querySelectorAll(prevSel);

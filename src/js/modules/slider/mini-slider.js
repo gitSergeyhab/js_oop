@@ -6,11 +6,13 @@ export default class MiniSlider extends Slider {
     }
 
     init() {
-        this.container.style.cssText = `
-            display: flex;
-            flex-wrap: wrap;
-            overflow: hidden;
-            `
+        try {
+            this.container.style.cssText = `
+                display: flex;
+                flex-wrap: wrap;
+                overflow: hidden;
+                ` 
+        } catch(e) {}
     }
 
     backwardSlide() {
@@ -24,11 +26,13 @@ export default class MiniSlider extends Slider {
     }
 
     forwardSlide() {
-        this.slides.forEach(slide => slide.classList.remove(this.activeClass))
-        const firstSlide = this.slides[0];
-        this.container.append(firstSlide);
-        this.slides = document.querySelectorAll(this.slideSel);
-        this.slides[0].classList.add(this.activeClass);
+        try {        
+            this.slides.forEach(slide => slide.classList.remove(this.activeClass))
+            const firstSlide = this.slides[0];
+            this.container.append(firstSlide);
+            this.slides = document.querySelectorAll(this.slideSel);
+            this.slides[0].classList.add(this.activeClass);
+        } catch(e) {}
     }
 
     prevSlide() {
@@ -58,22 +62,26 @@ export default class MiniSlider extends Slider {
         this.nextSlide();
         this.prevSlide();
 
-        if (this.autoMove) {
-            let slideInterval = setInterval(() => this.forwardSlide(), 1000);
+        try {
+            if (this.autoMove) {
+                let slideInterval = setInterval(() => this.forwardSlide(), 1000);
 
-            const allBtnsFun = (btns) => {
-                btns.forEach(btn => {
-                    btn.addEventListener('mouseenter', () => clearInterval(slideInterval));
-                    btn.addEventListener('mouseleave', () => slideInterval = setInterval(() => this.forwardSlide(), 1000));
-                })
-            };
+                const allBtnsFun = (btns) => {
+                    btns.forEach(btn => {
+                        btn.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                        btn.addEventListener('mouseleave', () => slideInterval = setInterval(() => this.forwardSlide(), 1000));
+                    })
+                };
 
-            allBtnsFun(this.btns);
-            allBtnsFun(this.prevBtns);
-            allBtnsFun(this.nextBtns)
-            allBtnsFun([this.container])
-            // this.container.addEventListener('mouseenter', () => clearInterval(slideInterval));
-            // this.container.addEventListener('mouseleave', () => slideInterval = setInterval(() => this.forwardSlide(), 1000));
-        }
+                allBtnsFun(this.btns);
+                allBtnsFun(this.prevBtns);
+                allBtnsFun(this.nextBtns)
+                allBtnsFun([this.container])
+                // this.container.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                // this.container.addEventListener('mouseleave', () => slideInterval = setInterval(() => this.forwardSlide(), 1000));
+            }
+        } catch(e) {}
+
+
     }
 }
