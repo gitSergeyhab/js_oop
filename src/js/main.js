@@ -1,7 +1,8 @@
 import Slider from './modules/slider/slider';
 import VideoPlayer from './modules/video-player';
 import MainSlider from './modules/slider/main-slider';
-import MiniSlider from './modules/slider/mini-slider'
+import MiniSlider from './modules/slider/mini-slider';
+import Difference from './modules/difference';
 
 window.addEventListener('DOMContentLoaded', () => {
     const slider = new MainSlider({containerSel: '.page', slideSel: '.page > div', btnsSel: '.next'});
@@ -37,6 +38,8 @@ window.addEventListener('DOMContentLoaded', () => {
         autoMove: true
     })
     feedSlider.slideGo();
+
+    new Difference('.officerold', '.officernew', '.officer__card-item .plus').init()
 
     const player = new VideoPlayer('.showup .play', '.overlay');
     player.init();

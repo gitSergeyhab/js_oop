@@ -17,7 +17,8 @@ export default class MiniSlider extends Slider {
         this.slides.forEach(slide => slide.classList.remove(this.activeClass))
         const lastSlide = this.slides[this.slides.length - 1];
         lastSlide.classList.add(this.activeClass);
-        this.container.insertAdjacentElement('afterbegin', lastSlide);
+        // this.container.insertAdjacentElement('afterbegin', lastSlide);
+        this.container.prepend(lastSlide)
         this.slides = document.querySelectorAll(this.slideSel);
         // this.slides[0].classList.add(this.activeClass);
     }
