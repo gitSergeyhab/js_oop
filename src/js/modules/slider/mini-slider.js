@@ -46,7 +46,8 @@ export default class MiniSlider extends Slider {
     nextSlide() {
         this.nextBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                this.forwardSlide()
+                this.forwardSlide();
+                console.log('!!!')
             })
         })
 

@@ -1,8 +1,8 @@
 import Slider from './slider';
 
 export default class MainSlider extends Slider {
-    constructor(containerSel, btnsSel) {
-        super(containerSel, btnsSel)
+    constructor(containerSel, btnsSel, nextSel, prevSel) {
+        super(containerSel, btnsSel, nextSel, prevSel)
     }
     
     showSlide(s) {
@@ -34,19 +34,27 @@ export default class MainSlider extends Slider {
         }
     }
 
+    bindTriggers(needBtn, n) {
+        needBtn.forEach(btn => {
+            btn.addEventListener('click', (evt) => {
+                evt.preventDefault();
+                this.nextIndex(n);
+                this.showSlide(this.index);
+                this.showHanson();
+            })
+        })
+    }
+
     render() {
         try {
-            this.btns.forEach(btn => {
-                btn.addEventListener('click', (evt) => {
-                    evt.preventDefault();
-                    this.nextIndex(1);
-                    this.showSlide(this.index);
-                    this.showHanson();
-                })
-            })
-        }catch(e) {}
+            this.bindTriggers(this.prevBtns, -1);
+            this.bindTriggers(this.nextBtns, 1);
+        } catch(e) {}
+
 
         try {
+            this.bindTriggers(this.btns, 1);
+
             this.container.querySelectorAll('.sidecontrol > a').forEach(D => {
                 D.addEventListener('click', (evt) => {
                     evt.preventDefault();
