@@ -2,7 +2,8 @@ export default class VideoPlayer {
     constructor (btnsSel, popupSel) {
         this.btns = document.querySelectorAll(btnsSel);
         this.popup = document.querySelector(popupSel);
-        this.close = this.popup.querySelector('.close')
+        this.close = this.popup.querySelector('.close');
+        this.onPlayerStateChange = this.onPlayerStateChange.bind(this)
     }
 
 
@@ -13,27 +14,58 @@ export default class VideoPlayer {
             height: '100%',
             width: '100%',
             videoId: url,
+            events: {
+                'onStateChange': this.onPlayerStateChange
+              }
           });
           this.popup.style.display = 'flex';
-          console.log(this.player)
+    }
+
+    onPlayerStateChange(state) {
+        if (state.data === 0) {
+            const closeVideo = this.playerBtn.closest('.module__video-item').nextElementSibling;
+            if (closeVideo) {
+                closeVideo.style.opacity = 1;
+                closeVideo.style.filter = 'none';
+                const closeVideoPlay = closeVideo.querySelector('.play');
+                const playBtn = this.playerBtn.querySelector('.play__circle').cloneNode(true);
+                closeVideoPlay.textContent = ''
+                closeVideoPlay.append(playBtn);
+                const playVideo = document.createElement('div');
+                playVideo.classList.add('play__text');
+                playVideo.textContent = 'play video';
+                closeVideoPlay.append(playVideo);
+            }
+        }
     }
 
 
     bindTrigers() {
         this.btns.forEach(btn => {
             btn.addEventListener('click', () => {
-                if(document.querySelector('iframe#frame')) {
-                    this.popup.style.display = 'flex';
-                } else {
-                    const path = btn.getAttribute('data-url');
-                    this.createPlayer(path);
+                this.playerBtn = btn;
+                if (
+                    !this.playerBtn.closest('.module__video-item') || 
+                    this.playerBtn.closest('.module__video-item').querySelector('.play__text').textContent == 'play video'
+                    ) {
+                    if(document.querySelector('iframe#frame')) {
+                        this.popup.style.display = 'flex';
+                        if (btn.getAttribute('data-url') !== this.path) {
+                            this.player.loadVideoById(btn.getAttribute('data-url'));
+                            this.path = btn.getAttribute('data-url');
+                        }
+                    } else {
+                        this.path = btn.getAttribute('data-url');
+                        this.createPlayer(this.path);
+                    }
                 }
             })
         })
 
         this.close.addEventListener('click', () => {
+            if (this.player) this.player.pauseVideo();
             this.popup.style.display = 'none';
-            this.player.pauseVideo();
+            
         })
     }
 

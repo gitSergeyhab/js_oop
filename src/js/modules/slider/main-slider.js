@@ -51,7 +51,6 @@ export default class MainSlider extends Slider {
             this.bindTriggers(this.nextBtns, 1);
         } catch(e) {}
 
-
         try {
             this.bindTriggers(this.btns, 1);
 
