@@ -3,7 +3,9 @@ import VideoPlayer from './modules/video-player';
 import MainSlider from './modules/slider/main-slider';
 import MiniSlider from './modules/slider/mini-slider';
 import Difference from './modules/difference';
-import Forms from './modules/forms'
+import Forms from './modules/forms';
+import Acordion from './modules/acordion';
+import Download from './modules/download';
 
 window.addEventListener('DOMContentLoaded', () => {
     const mainPageSlider = new MainSlider({
@@ -57,4 +59,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     new VideoPlayer('.showup .play', '.overlay').init();
     new VideoPlayer('.module__video-item .play', '.overlay').init();
+    new Acordion('.module__info-show .plus').openMessage();
+    new Download('.download').init()
 })
